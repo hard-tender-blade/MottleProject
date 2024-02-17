@@ -12,6 +12,6 @@ interface TeamRequest {
 interface Person {
     title: string
     cost: number
-    specialization: "IT" | "CIO"
+    specialization: string
     avalable: boolean
 }

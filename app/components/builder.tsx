@@ -8,29 +8,31 @@ interface Props {
 }
 
 export default function Builder(p: Props) {
-  const [persons, setPersons] = useState<Person[]>([
-    { title: "Derek", cost: 120, specialization: "IT", avalable: false },
-    { title: "Roderick", cost: 150, specialization: "IT", avalable: false },
-    { title: "Sarah", cost: 500, specialization: "IT", avalable: false },
-    { title: "Inge", cost: 150, specialization: "CIO", avalable: false },
-    { title: "Rudolf", cost: 250, specialization: "CIO", avalable: false },
-    { title: "Angela", cost: 450, specialization: "IT", avalable: false },
-    { title: "Richard", cost: 150, specialization: "CIO", avalable: false },
-    { title: "Alex", cost: 500, specialization: "IT", avalable: false },
-    { title: "Robert", cost: 550, specialization: "CIO", avalable: false },
-  ]);
+  const [persons, setPersons] = useState<Person[]>(p.persons);
+
   const [selectedPersons, setSelectedPersons] = useState<Person[]>([]);
   const [heslo, setHeslo] = useState("");
 
   return (
-    <div className="flex">
+    <div className="flex gap-10">
+      <button
+        onClick={() => {
+          p.setCurrentScreen(0);
+        }}
+      >
+        go back
+      </button>
       <div>
         <h1>Nabidka clenu</h1>
         <div>
           {persons.map((person, i) => {
             return (
-              <div key={i}>
-                {person.title}
+              <div key={i} className="flex gap-5">
+                <div className="flex gap-2">
+                  <p>{person.title}</p>
+                  <p>{person.cost}</p>
+                  <p>{person.specialization}</p>
+                </div>
 
                 <div>
                   <button
@@ -60,8 +62,18 @@ export default function Builder(p: Props) {
           placeholder="heslo"
         />
         <button
-          onChange={() => {
-            //reset
+          className=""
+          onClick={() => {
+            if (heslo === "") {
+              alert("Zadejte heslo");
+              return;
+            }
+
+            if (selectedPersons.length === 0) {
+              alert("Vyberte cleny");
+              return;
+            }
+
             setHeslo("");
             setSelectedPersons([]);
             setPersons(p.persons);
@@ -88,7 +100,7 @@ export default function Builder(p: Props) {
       <div>
         {selectedPersons.map((person, i) => {
           return (
-            <div key={i}>
+            <div key={i} className="flex gap-5">
               {person.title}
 
               <div>
@@ -106,6 +118,14 @@ export default function Builder(p: Props) {
             </div>
           );
         })}
+      </div>
+
+      <div>
+        <p>Pocet clenu</p>
+        <p>{selectedPersons.length}</p>
+
+        <p>Cena</p>
+        <p>{selectedPersons.reduce((acc, person) => acc + person.cost, 0)}</p>
       </div>
     </div>
   );

@@ -17,14 +17,19 @@ export default function Hero(p: Props) {
       if (admin.pass == pass && admin.title == login) {
         p.setCurrentUser(admin);
         p.setCurrentScreen(2);
+        setLogin("");
+        setPass("");
+        return;
       }
     }
+    alert("Wrong login or password");
   };
 
   return (
     <div>
       <h1>Team builder</h1>
       <button
+        className="underline"
         onClick={() => {
           p.setCurrentScreen(1);
         }}
@@ -52,7 +57,9 @@ export default function Hero(p: Props) {
         }}
         placeholder="Pass"
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <button className="underline" onClick={handleSubmit}>
+        Log-in
+      </button>
     </div>
   );
 }

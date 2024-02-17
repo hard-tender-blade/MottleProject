@@ -42,7 +42,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState<Admin | null>(null);
 
   return (
-    <main className="w-screen h-screen flex justify-center items-center">
+    <main className="w-screen h-screen flex justify-center">
       <div className={currentScreen == 0 ? "" : "hidden"}>
         <Hero
           setCurrentScreen={setCurrentScreen}
@@ -52,11 +52,23 @@ export default function Home() {
       </div>
 
       <div className={currentScreen == 1 ? "" : "hidden"}>
-        <Builder persons={persons} requests={requests} setRequests={setRequests} setCurrentScreen={setCurrentScreen} />
+        <Builder
+          persons={persons}
+          requests={requests}
+          setRequests={setRequests}
+          setCurrentScreen={setCurrentScreen}
+        />
       </div>
 
       <div className={currentScreen == 2 ? "" : "hidden"}>
-        <Admin setCurrentScreen={setCurrentScreen} currentUser={currentUser} requests={requests} />
+        <Admin
+          setCurrentScreen={setCurrentScreen}
+          currentUser={currentUser}
+          requests={requests}
+          setCurrentUser={setCurrentUser}
+          setPersons={setPersons}
+          persons={persons}
+        />
       </div>
     </main>
   );
